@@ -24,8 +24,18 @@ class Perceptron:
 
   # Checking the perceptron versus the input
   def learn(self, inputs, correct):
-    output = evaluate(self, inputs)
+    output = self.evaluate(inputs)
     if output > correct:
       self.eval_vector = np.array(self.eval_vector) - np.array(inputs)
     if output < correct:
-      self.eval_vector = np.array(self.eval_vector) - np.array(inputs)
+      self.eval_vector = np.array(self.eval_vector) + np.array(inputs)
+  
+  # Commencing the learning
+  def full_learning(self, data):
+    run = True
+    while run:
+      run = False
+      for i in range(len(data)):
+        if self.learn(data[i][0], data[i][1]):
+          run = True # Continues if any errors occur
+    print(self.eval_vector)
